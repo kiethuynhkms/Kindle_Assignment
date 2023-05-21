@@ -1,0 +1,2 @@
+class Hard < Book
+end

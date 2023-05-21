@@ -1,0 +1,2 @@
+class Kindle < Book
+end
