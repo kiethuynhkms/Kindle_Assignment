@@ -1,3 +1,5 @@
+require 'epubinfo'
+require 'nokogiri'
 class BooksController < ApplicationController
   before_action :set_book, only: %i[ show update destroy ]
   rescue_from ActiveRecord::Rollback, with: :handle_rollback
@@ -60,6 +62,28 @@ class BooksController < ApplicationController
         render json: { error: e.message }, status: :unprocessable_entity
         raise ActiveRecord::Rollback
       end
+    end
+  end
+
+  def export
+    begin
+      book_id = params[:book_id].to_i
+      book = Book.find(book_id)
+      mobi_file_path = book[:file_link]
+      output_file_path = gen_file_base_format(params[:format])
+      if params[:format] == 'pdf' || params[:format] == 'docx'
+        generate_file(mobi_file_path, output_file_path)
+        return
+      else
+        intermediate_path = 'D:/kindle_assignment/storage/file/exported.epub'
+        output_file_name = (params[:format] == 'html') ? 'exported.html' : 'exported.jpg'
+        system("ebook-convert #{mobi_file_path} #{intermediate_path}")
+        system("kindlegen #{intermediate_path} -c2 -o #{output_file_name}")
+        render json: {success: true, file_path: output_file_path}
+        return
+      end
+    rescue => e
+      render json: { error: e.message }, status: :unprocessable_entity
     end
   end
 

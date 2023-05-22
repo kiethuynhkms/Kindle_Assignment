@@ -76,6 +76,9 @@ GEM
     debug (1.8.0)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
+    epubinfo (0.4.4)
+      nokogiri (>= 1.4.2)
+      rubyzip (>= 1.0)
     erubi (1.12.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
@@ -85,6 +88,9 @@ GEM
     irb (1.6.4)
       reline (>= 0.3.0)
     jwt (2.7.0)
+    kindlegen (3.1.1)
+      rake
+      rubyzip
     loofah (2.21.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -146,6 +152,7 @@ GEM
     rake (13.0.6)
     reline (0.3.4)
       io-console (~> 0.5)
+    rubyzip (2.3.2)
     sqlite3 (1.6.3-x64-mingw-ucrt)
     thor (1.2.2)
     timeout (0.3.2)
@@ -165,7 +172,10 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap
   debug
+  epubinfo
   jwt
+  kindlegen
+  nokogiri (~> 1.12)
   pg
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.3)
